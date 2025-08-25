@@ -19,19 +19,10 @@ public class CreateEmployeeDTO {
     @NotBlank
     private Date dob;
 
-    @NotBlank
-    private Integer age;
-
     private List<Contract> contracts;
 
     @NotBlank
     private EmployeeType employeeType;
-
-    @NotBlank
-    private Integer salary;
-
-    @NotBlank
-    private Float hours;
 
     @NotBlank
     private Department department;
@@ -42,11 +33,8 @@ public class CreateEmployeeDTO {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
         this.contracts = contracts;
         this.employeeType = employeeType;
-        this.salary = salary;
-        this.hours = hours;
         this.department = department;
     }
 
@@ -62,24 +50,12 @@ public class CreateEmployeeDTO {
         return dob;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
     public List<Contract> getContracts() {
         return contracts;
     }
 
     public EmployeeType getEmployeeType() {
         return employeeType;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public Float getHours() {
-        return hours;
     }
 
     public Department getDepartment() {

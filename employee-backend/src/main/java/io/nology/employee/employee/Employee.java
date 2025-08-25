@@ -1,8 +1,15 @@
 package io.nology.employee.employee;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.nology.employee.contract.Contract;
 import jakarta.persistence.CascadeType;
@@ -36,10 +43,6 @@ public class Employee {
     @NotBlank
     private Date dob;
 
-    @Column
-    @NotBlank
-    private Integer age;
-
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn
     private List<Contract> contracts = new ArrayList<>();
@@ -54,14 +57,6 @@ public class Employee {
     @Column
     @NotBlank
     private EmployeeType employeeType;
-
-    @Column
-    @NotBlank
-    private Integer salary;
-
-    @Column
-    @NotBlank
-    private Float hours;
 
     public enum Department {
         SALES,
@@ -82,11 +77,8 @@ public class Employee {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
         this.contracts = contracts;
         this.employeeType = employeeType;
-        this.salary = salary;
-        this.hours = hours;
         this.department = department;
     }
 
@@ -122,14 +114,6 @@ public class Employee {
         this.dob = dob;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public List<Contract> getContracts() {
         return contracts;
     }
@@ -146,28 +130,41 @@ public class Employee {
         this.employeeType = employeeType;
     }
 
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
-    public Float getHours() {
-        return hours;
-    }
-
-    public void setHours(Float hours) {
-        this.hours = hours;
-    }
-
     public Department getDepartment() {
         return department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    @JsonProperty
+    public Integer getAge() {
+        if (dob == null)
+            return null;
+        LocalDate birthDate = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
+
+    @JsonProperty
+    public Integer getSalary() {
+        if (contracts == null || contracts.isEmpty())
+            return 0;
+        return contracts.stream()
+                .map(Contract::getCost)
+                .filter(Objects::nonNull)
+                .reduce(0, Integer::sum);
+    }
+
+    @JsonProperty
+    public Float getHours() {
+        if (contracts == null || contracts.isEmpty())
+            return 0f;
+
+        return contracts.stream()
+                .map(Contract::getHours)
+                .filter(Objects::nonNull)
+                .reduce(Float.valueOf(0f), Float::sum);
     }
 
 }

@@ -40,16 +40,20 @@ public class Contract {
 
     @Column
     @NotBlank
-    private long cost;
+    private Integer cost;
+
+    @Column
+    Integer hours;
 
     public Contract(Long id, @NotBlank ContractType contractType, @NotBlank LocalDate startDate, LocalDate endDate,
-            Employee employee, @NotBlank long cost) {
+            Employee employee, @NotBlank Integer cost, Integer hours) {
         this.id = id;
         this.contractType = contractType;
         this.startDate = startDate;
         this.endDate = endDate;
         this.employee = employee;
         this.cost = cost;
+        this.hours = hours;
     }
 
     public Long getId() {
@@ -92,12 +96,20 @@ public class Contract {
         this.employee = employee;
     }
 
-    public long getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(long cost) {
+    public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
 
 }
