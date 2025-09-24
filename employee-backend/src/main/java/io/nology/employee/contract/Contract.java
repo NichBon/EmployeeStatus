@@ -4,13 +4,17 @@ import java.time.LocalDate;
 
 import io.nology.employee.employee.Employee;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
+@Entity
+@Table
 public class Contract {
 
     @Id
@@ -43,18 +47,7 @@ public class Contract {
     private Integer cost;
 
     @Column
-    Integer hours;
-
-    public Contract(Long id, @NotBlank ContractType contractType, @NotBlank LocalDate startDate, LocalDate endDate,
-            Employee employee, @NotBlank Integer cost, Integer hours) {
-        this.id = id;
-        this.contractType = contractType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.employee = employee;
-        this.cost = cost;
-        this.hours = hours;
-    }
+    Float hours;
 
     public Long getId() {
         return id;
@@ -104,11 +97,11 @@ public class Contract {
         this.cost = cost;
     }
 
-    public Integer getHours() {
+    public Float getHours() {
         return hours;
     }
 
-    public void setHours(Integer hours) {
+    public void setHours(Float hours) {
         this.hours = hours;
     }
 

@@ -19,29 +19,19 @@ public class UpdateEmployeeDTO {
 
     private Date dob;
 
-    private Integer age;
-
     private List<Contract> contracts;
 
     private EmployeeType employeeType;
 
-    private Integer salary;
-
-    private Float hours;
-
     private Department department;
 
-    public UpdateEmployeeDTO(@NotBlank String name, @NotBlank String email, @NotBlank Date dob, @NotBlank Integer age,
-            List<Contract> contracts, @NotBlank EmployeeType employeeType, @NotBlank Integer salary,
-            @NotBlank Float hours, @NotBlank Department department) {
+    public UpdateEmployeeDTO(@NotBlank String name, @NotBlank String email, @NotBlank Date dob,
+            List<Contract> contracts, @NotBlank EmployeeType employeeType, @NotBlank Department department) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
         this.contracts = contracts;
         this.employeeType = employeeType;
-        this.salary = salary;
-        this.hours = hours;
         this.department = department;
     }
 
@@ -61,24 +51,12 @@ public class UpdateEmployeeDTO {
         return dob;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
     public List<Contract> getContracts() {
         return contracts;
     }
 
     public EmployeeType getEmployeeType() {
         return employeeType;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public Float getHours() {
-        return hours;
     }
 
     public Department getDepartment() {

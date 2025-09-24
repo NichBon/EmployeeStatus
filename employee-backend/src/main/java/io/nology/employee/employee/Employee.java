@@ -18,7 +18,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -40,11 +39,9 @@ public class Employee {
     private String email;
 
     @Column
-    @NotBlank
     private Date dob;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn
     private List<Contract> contracts = new ArrayList<>();
 
     public enum EmployeeType {
@@ -55,7 +52,6 @@ public class Employee {
     }
 
     @Column
-    @NotBlank
     private EmployeeType employeeType;
 
     public enum Department {
@@ -67,20 +63,7 @@ public class Employee {
     }
 
     @Column
-    @NotBlank
     private Department department;
-
-    public Employee(Long id, @NotBlank String name, @NotBlank String email, @NotBlank Date dob, @NotBlank Integer age,
-            List<Contract> contracts, @NotBlank EmployeeType employeeType, @NotBlank Integer salary,
-            @NotBlank Float hours, @NotBlank Department department) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-        this.contracts = contracts;
-        this.employeeType = employeeType;
-        this.department = department;
-    }
 
     public Long getId() {
         return id;
@@ -138,33 +121,34 @@ public class Employee {
         this.department = department;
     }
 
-    @JsonProperty
-    public Integer getAge() {
-        if (dob == null)
-            return null;
-        LocalDate birthDate = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return Period.between(birthDate, LocalDate.now()).getYears();
-    }
+    // @JsonProperty
+    // public Integer getAge() {
+    // if (dob == null)
+    // return null;
+    // LocalDate birthDate =
+    // dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    // return Period.between(birthDate, LocalDate.now()).getYears();
+    // }
 
-    @JsonProperty
-    public Integer getSalary() {
-        if (contracts == null || contracts.isEmpty())
-            return 0;
-        return contracts.stream()
-                .map(Contract::getCost)
-                .filter(Objects::nonNull)
-                .reduce(0, Integer::sum);
-    }
+    // @JsonProperty
+    // public Integer getSalary() {
+    // if (contracts == null || contracts.isEmpty())
+    // return 0;
+    // return contracts.stream()
+    // .map(Contract::getCost)
+    // .filter(Objects::nonNull)
+    // .reduce(0, Integer::sum);
+    // }
 
-    @JsonProperty
-    public Float getHours() {
-        if (contracts == null || contracts.isEmpty())
-            return 0f;
+    // @JsonProperty
+    // public Float getHours() {
+    // if (contracts == null || contracts.isEmpty())
+    // return 0f;
 
-        return contracts.stream()
-                .map(Contract::getHours)
-                .filter(Objects::nonNull)
-                .reduce(Float.valueOf(0f), Float::sum);
-    }
+    // return contracts.stream()
+    // .map(Contract::getHours)
+    // .filter(Objects::nonNull)
+    // .reduce(Float.valueOf(0f), Float::sum);
+    // }
 
 }

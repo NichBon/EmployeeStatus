@@ -7,6 +7,7 @@ import io.nology.employee.contract.Contract;
 import io.nology.employee.employee.Employee.Department;
 import io.nology.employee.employee.Employee.EmployeeType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class CreateEmployeeDTO {
 
@@ -16,15 +17,15 @@ public class CreateEmployeeDTO {
     @NotBlank
     private String email;
 
-    @NotBlank
+    @NotNull
     private Date dob;
 
     private List<Contract> contracts;
 
-    @NotBlank
+    @NotNull
     private EmployeeType employeeType;
 
-    @NotBlank
+    @NotNull
     private Department department;
 
     public CreateEmployeeDTO(@NotBlank String name, @NotBlank String email, @NotBlank Date dob, @NotBlank Integer age,
