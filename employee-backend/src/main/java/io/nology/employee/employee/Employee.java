@@ -1,15 +1,8 @@
 package io.nology.employee.employee;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.nology.employee.contract.Contract;
 import jakarta.persistence.CascadeType;

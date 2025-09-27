@@ -34,6 +34,10 @@ public class UpdateContractDTO {
         this.hours = hours;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public ContractType getContractType() {
         return contractType;
     }
